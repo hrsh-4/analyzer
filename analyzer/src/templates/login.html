@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}login{% endblock title %}
+
+{% block content %}
+
+
+
+<div class='block-center'>
+
+  <style type="text/css">
+  button{
+        border-radius: 40px;
+        width: 20%;
+
+      }
+      a{
+        border-radius: 40px;
+      }
+      body{
+        overflow-x: scroll;
+      }
+
+</style>
+    {% if error_message %}
+        <div class="ui negative message">
+            <i class="close icon"></i>
+            <div class="header">
+                {{ error_message }}
+            </div>
+        </div>
+    {% endif %}
+    <form action="" method="POST" class="ui form" autocomplete="off">
+        {% csrf_token %}
+        {{ form }}
+        <br>
+        <br>
+        <button class="btn btn-primary" style="border-radius:20px; " type='submit' >Login</button>
+    </form>
+</div>
+{% endblock content %}

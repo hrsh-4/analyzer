@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}performance{% endblock title %}
+
+{% block content %}
+<h1>Sales</h1>
+
+  <style type="text/css">
+  button{
+        border-radius: 40px;
+
+      }
+      a{
+        border-radius: 40px;
+      }
+      body{
+        overflow-x: scroll;
+      }
+</style>
+    {% if graph %}
+        <div class="block-center">
+            <img src="data:image/png;base64, {{ graph | safe}}" height="600" width="auto">
+        </div>
+    {% endif %}
+{% endblock content %}

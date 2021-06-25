@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}add purchase{% endblock title %}
+
+{% block content %}
+
+
+  <style type="text/css">
+  button{
+        border-radius: 40px;
+        width: 30%;
+      }
+      a{
+        border-radius: 40px;
+      }
+      body{
+        overflow-x: scroll;
+      }
+      
+</style>
+{% if added_message %}
+    <div class="ui success message">
+        <i class="close icon"></i>
+        <div class="header">
+            {{ added_message }}
+        </div>
+    </div>
+{% endif %}
+
+
+<form action="" method="POST" class="ui form">
+    {% csrf_token %}
+    {{ form }}
+    <br><br>
+    <button type='submit' class='btn btn-success'>Add sales data</button>
+</form>
+{% endblock content %}
