@@ -9,7 +9,10 @@ import seaborn as sns
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+from datetime import date, timedelta
 # Create your views here.
+
+from collections import defaultdict
 
 @login_required
 def sales_dist_view(request):
@@ -105,3 +108,51 @@ def add_purchase_view(request):
     return render(request, 'products/add.html', context)
 
     
+@login_required
+def generate_report(request):
+
+    if request.method == "POST":
+
+        duration = request.POST.get("duration")
+        end = date.today() + timedelta(days  = 1)
+        start = date.today()
+        # if duration == "weeky":
+        #     start = end  - timedelta(days = 7)
+
+        # elif duration == "monthly":
+        #     start = end  - timedelta(days = 30)
+
+        # elif duration == "yearly":
+        #     start = end  - timedelta(days = 365)
+
+        if duration:
+            try:
+
+                duration = int(duration)
+                start  = end  - timedelta(days = duration)
+            except:
+                pass
+
+        purchase = Purchase.objects.filter(date__range = [start, end]).reverse()
+        purchase = purchase[::-1]
+        salesman_data =  dict()
+
+        for x in purchase:
+            try:
+                if salesman_data[x.salesman.first_name + " " + x.salesman.last_name]:
+
+                    salesman_data[x.salesman.first_name + " " + x.salesman.last_name]  += x.total_price
+
+            except:
+                salesman_data[x.salesman.first_name + " " + x.salesman.last_name]  = 0
+                salesman_data[x.salesman.first_name + " " + x.salesman.last_name] += x.total_price
+
+
+
+        print(salesman_data)
+
+        return render(request, "products/report.html", {"start": start, "end" : end, "purchase" : purchase, "salesman_data" : salesman_data})
+
+    else:
+        return render(request, "products/report.html",{})
+

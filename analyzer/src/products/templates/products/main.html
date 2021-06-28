@@ -84,7 +84,7 @@
         </div>
         <br>
         <div class="block-center">
-            <button class='btn btn-primary' type='submit'>Show Graph</button>
+            <button id="show-graph" class='btn btn-primary'   >Show Graph</button>
         </div>
     </form>
     <br>
@@ -92,9 +92,63 @@
         <button class='btn btn-secondary' id='modal-btn'>See summary</button>
         <br>
         <br>
+
+       
+    </div>
+
+
+    <div id="report"  class="block-center">
+        <a href="generate-report" style="background  : #acacac" class='btn ' id='modal-btn'  >Print Report</a>
+        <br>
+        <br>
        
     </div>
 
 </div>
+
+<script type="text/javascript">
+    
+    // function showReport () {
+         
+    //      setTimeout(3000);
+
+    //      console.log("graph")
+
+
+    //     document.getElementById("report").style.visibility = "visible";
+    // }
+ 
+    // var x = 0;
+
+    // function inc(){
+    //     x++;
+    // }
+
+    // function vis(){
+
+    //      document.getElementById("report").style.visibility = "visible";
+    
+    // }
+
+    // function showReport () {
+         
+    //      setTimeout(3000);
+
+    //      console.log("graph")
+
+
+    //     print()
+    // }
+
+    // document.getElementById("show-graph").onlick( () => {
+    //     console.log("graph")
+    //     document.getElementById("report").style.visibility = "visible";
+    // } )
+
+    // document.getElementById("report").onclick( () => {
+    //     print()
+    // } )
+
+</script>
 
 {% endblock content %}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	
+
+	<head>
+	<title>Analyzer - Report</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<br>
+<div class="container">
+<br>
+
+
+
+
+<br>
+	{% if request.POST %}
+	<h1>Report  from {{start}}  to {{end}}</h1>
+
+<br>
+<h3>Sales Report</h3>
+<br>
+	<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Product Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Total Price</th>
+      <th scope="col">Sold By</th>
+      <th scope="col">Date and Time</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for x in purchase  %}
+    	
+    <tr>
+     
+      <td>{{x.product}}</td>
+      <td>{{x.quantity}}</td>
+      <td>Rs. {{x.price}}</td>
+      <td>Rs. {{x.total_price}}</td>
+      <td>{{x.salesman.first_name }} {{x.salesman.last_name}}</td>
+      <td>{{x.date}}</td>
+    </tr>
+    {% endfor %}
+    
+
+  </tbody>
+</table>
+
+
+	    <h3>Salesman Sales Report</h3>
+
+	    	<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Salesman</th>
+      <th scope="col">Total Sales</th>
+      
+
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for x ,y in salesman_data.items  %}
+    	
+    <tr>
+     
+      <td>{{x}}</td>
+      <td>Rs. {{y}}</td>
+    
+    </tr>
+    {% endfor %}
+    
+
+  </tbody>
+</table>
+	
+
+	<button class="btn btn-success" onclick="report()" id="report">Print</button>
+	
+	{% endif %}
+	<br><br>
+
+
+	<form method="POST">
+		 {% csrf_token %}   
+		 <h3>Enter duration to generate report</h3>
+		 <div class="form-group">
+		 	<input id="duration" style="width : 300px" class="form-control" type="number" onchange="detect(this.value)" name="duration">
+
+		 </div>
+		 <input  class="btn btn-primary" type="submit" name="" value="Genrate Report">
+
+	</form>
+		
+
+
+</div>
+<script type="text/javascript">
+	
+	function report(){
+		print()
+	}
+
+	function detect(val) {
+		// body...
+
+		// let x = document.getElementById('duration').value
+
+		
+		if( val < 0){
+			alert("enter a valid positive number")
+		}
+
+	}
+
+
+
+</script>
+{% endblock content %}
